@@ -61,8 +61,6 @@ app.controller("searchCtrl", function($scope, $q, $mdToast, assetsService) {
               .hideDelay(3000)
           );
         });
-    } else {
-      $scope.count = 0;
     }
   }
 
