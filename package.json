@@ -1,0 +1,19 @@
+{
+  "name": "stock-application",
+  "version": "1.0.0",
+  "description": "A stock application which is built using angular, used to get the details of stock or equity based on user preferences.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "stock",
+    "angular"
+  ],
+  "author": "Khushhal Gupta",
+  "license": "ISC",
+  "dependencies": {
+    "angular": "^1.6.9",
+    "angular-material-data-table": "^0.10.10"
+  }
+}

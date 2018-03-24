@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html ng-app="App">
+<head>
+  <meta charset="utf-8">
+  <link rel="shortcut icon" href="https://png.icons8.com/nolan/50/000000/move-stock.png"/>
+  <title>Stock - Equity Manager</title>
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.8/angular-material.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="./node_modules/angular-material-data-table/dist/md-data-table.min.css" rel="stylesheet" type="text/css"/>
+
+  <script type="text/javascript" src="./node_modules/angular/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-aria.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-animate.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.8/angular-material.min.js"></script>
+  <script type="text/javascript" src="./node_modules/angular-material-data-table/dist/md-data-table.min.js"></script>
+</head>
+<body ng-controller="mainController">
+  <div id="app-hero">
+    <div id="header">
+      <a href="/">
+        <i class="material-icons">attach_money</i>
+        <span>Stock Manager</span>
+      </a>
+    </div>
+    <div id="search-container">
+      <p id="title">
+        Best source for stocks
+      </p>
+      <div ng-controller="searchCtrl as ctrl">
+        <md-autocomplete
+        md-search-text="ctrl.searchText"
+        md-selected-item-change="ctrl.selectedItemChange(item)"
+        md-items="item in ctrl.querySearch(ctrl.searchText)"
+        md-item-text="item.name"
+        md-min-length="0"
+        placeholder="Search stocks or equity"
+        id="search-input-component">
+        <md-item-template>
+          <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item.name}}</span>
+        </md-item-template>
+        <md-not-found>
+          No stock matching "{{ctrl.searchText}}" were found.
+        </md-not-found>
+      </md-autocomplete>
+      <p id="count-text">
+        {{count}} stocks found
+      </p>
+    </div>
+  </div>
+</div>
+<div ng-show="(asset.data | filter:criteria).length" id="stock-table">
+  <md-toolbar class="md-table-toolbar md-default">
+    <div class="md-toolbar-tools">
+      <span>Stocks or Equity</span>
+    </div>
+  </md-toolbar>
+  <md-table-container>
+    <table md-table md-row-select multiple ng-model="asset.selected">
+      <thead md-head md-order="asset.orderProp" md-on-reorder="reArrangeAssets">
+        <tr md-row>
+          <th md-column md-order-by="contractName"><span>Name</span></th>
+          <th md-column md-numeric><span>Symbol</span></th>
+          <th md-column md-numeric>Currency</th>
+          <th md-column md-numeric md-order-by="lastPrice">Last Price</th>
+          <th md-column md-numeric md-order-by="pricingDate">Pricing Date</th>
+          <th md-column md-numeric md-order-by="highPrice">High Price</th>
+          <th md-column md-numeric md-order-by="lowPrice">Low Price</th>
+        </tr>
+      </thead>
+      <tbody md-body>
+        <tr md-row md-select="asset" md-select-id="id" md-auto-select
+        ng-repeat="asset in asset.data| orderBy:asset.order.property:asset.order.reverse">
+        <td md-cell>{{asset.contractName}}</td>
+        <td md-cell>{{asset.symbol}}</td>
+        <td md-cell>{{asset.currency}}</td>
+        <td md-cell>{{asset.lastPrice}}</td>
+        <td md-cell>{{asset.pricingDate|date : 'MMMM d, y'}}</td>
+        <td md-cell>{{asset.highPrice}}</td>
+        <td md-cell>{{asset.lowPrice}}</td>
+      </tr>
+    </tbody>
+  </table>
+</md-table-container>
+</div>
+<div id="footer">
+  Made with ♥ remotely from Khushhal Gupta
+</div>
+</body>
+<link href="./styles/style.css" rel="stylesheet">
+<script type="text/javascript" src="./app.js"></script>
+</html>
